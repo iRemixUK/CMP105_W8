@@ -4,6 +4,8 @@
 #include "Framework/Input.h"
 #include "Ball.h"
 #include "Framework/Collision.h"
+#include "Paddle.h"
+#include "Paddle2.h"
 #include <string>
 #include <iostream>
 
@@ -25,7 +27,8 @@ private:
 	// Default variables for level class.
 	sf::RenderWindow* window;
 	Input* input;
-	Ball square1;
-	Ball square2;
+	Ball ball;
+	Paddle paddle1;
+	Paddle2 paddle2;
 	sf::Texture texture;
 };

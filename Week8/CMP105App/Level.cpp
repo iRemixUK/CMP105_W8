@@ -8,21 +8,25 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 	// initialise game objects
 	texture.loadFromFile("gfx/Beach_ball.png");
 
-	square1.setTexture(&texture);
-	square2.setTexture(&texture);
-	
-	square1.setPosition(0, 200);
-	square1.setSize(sf::Vector2f(50, 50));
-	//square1.setCollisionBox(sf::FloatRect(0, 0, 50, 50));
-	square1.setPosition(0, 200); 
-	square1.setVelocity(50.f); 
-	square1.setWindow(window);
+	ball.setTexture(&texture);
+	ball.setPosition(0, 200);
+	ball.setSize(sf::Vector2f(50, 50));
+	ball.setPosition(300, 200); 
+	ball.setWindow(window);
 
-	square2.setPosition(750, 200); 
-	square2.setSize(sf::Vector2f(50, 50)); 
-	//square2.setCollisionBox(sf::FloatRect(0, 0, 50, 50)); 
-	square2.setVelocity(-50.f);
-	square2.setWindow(window);
+	paddle1.setPosition(200, 200);
+	paddle1.setSize(sf::Vector2f(50, 200)); 
+	paddle1.setCollisionBox(sf::FloatRect(0, 0, 50, 200));
+	paddle1.setFillColor(sf::Color::Blue);
+	paddle1.setWindow(window);
+	paddle1.setInput(input);
+
+	paddle2.setPosition(1000, 200);
+	paddle2.setSize(sf::Vector2f(50, 200));
+	paddle2.setCollisionBox(sf::FloatRect(0, 0, 50, 200));
+	paddle2.setFillColor(sf::Color::Green);
+	paddle2.setWindow(window);
+	paddle2.setInput(input);
 }
 
 Level::~Level()
@@ -33,20 +37,18 @@ Level::~Level()
 // handle user input
 void Level::handleInput(float dt)
 {
-
+	paddle1.handleInput(dt);
+	paddle2.handleInput(dt);
 }
 
 // Update game objects
 void Level::update(float dt)
 {
-	square1.update(dt);
-	square2.update(dt);
+	ball.update(dt);
+	paddle1.update(dt);
+	paddle2.update(dt);
 
-	if (Collision::checkBoundingCircle(&square1, &square2))
-	{
-		square1.collisionResponse(NULL); 
-		square2.collisionResponse(NULL); 
-	}
+	
 }
 
 // Render level
@@ -61,8 +63,9 @@ void Level::render()
 void Level::beginDraw()
 {
 	window->clear(sf::Color(100, 149, 237));
-	window->draw(square1);
-	window->draw(square2);
+	window->draw(ball);
+	window->draw(paddle1);
+	window->draw(paddle2);
 }
 
 // Ends rendering to the back buffer, and swaps buffer to the screen.

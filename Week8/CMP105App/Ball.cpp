@@ -1,7 +1,7 @@
 #include "Ball.h"
 Ball::Ball()
 {
-	velocity.x = 50;
+	velocity.x = 100.f;
 }
 
 void Ball::update(float dt)
