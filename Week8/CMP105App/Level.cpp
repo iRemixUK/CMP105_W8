@@ -13,15 +13,16 @@ Level::Level(sf::RenderWindow* hwnd, Input* in)
 	ball.setSize(sf::Vector2f(50, 50));
 	ball.setPosition(300, 200); 
 	ball.setWindow(window);
+	ball.setCollisionBox(sf::FloatRect(0, 0, 50, 50));
 
-	paddle1.setPosition(200, 200);
+	paddle1.setPosition(100, 200);
 	paddle1.setSize(sf::Vector2f(50, 200)); 
 	paddle1.setCollisionBox(sf::FloatRect(0, 0, 50, 200));
 	paddle1.setFillColor(sf::Color::Blue);
 	paddle1.setWindow(window);
 	paddle1.setInput(input);
 
-	paddle2.setPosition(1000, 200);
+	paddle2.setPosition(1100, 200);
 	paddle2.setSize(sf::Vector2f(50, 200));
 	paddle2.setCollisionBox(sf::FloatRect(0, 0, 50, 200));
 	paddle2.setFillColor(sf::Color::Green);
@@ -48,7 +49,17 @@ void Level::update(float dt)
 	paddle1.update(dt);
 	paddle2.update(dt);
 
-	
+	if (Collision::checkBoundingBox(&ball, &paddle1))
+	{ 
+		ball.collisionResponse(NULL);
+		
+	}
+
+	if (Collision::checkBoundingBox(&ball, &paddle2))
+	{
+		ball.collisionResponse(NULL);
+
+	}
 }
 
 // Render level
